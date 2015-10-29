@@ -63,7 +63,7 @@ if __name__ == '__main__':
             data_chunk = stream.read(CHUNK)
         except IOError as e:
             print "I/O error({0}): {1}".format(e.errno, e.strerror)
-            break
+            continue
 
         rms = audioop.rms(data_chunk, 2)
         if rms > current_max:
