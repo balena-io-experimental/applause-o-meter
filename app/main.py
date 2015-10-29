@@ -9,9 +9,6 @@ if __name__ == '__main__':
 
     while True:
         color = Color(0, 60, 0)
-        # setRowColor(led_array,1,color)
-        # fill_up_to(led_array,0,color)
-        # sleep(0.1)
         led_array.fill_up_to(7,color)
         time.sleep(5)
         led_array.empty_array()
