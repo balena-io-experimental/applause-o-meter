@@ -11,4 +11,4 @@ COPY app /usr/src/app
 
 WORKDIR /usr/src/app
 
-CMD ["python","leds.py"]
+CMD ["python","main.py"]
