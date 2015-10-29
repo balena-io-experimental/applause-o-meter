@@ -73,7 +73,7 @@ if __name__ == '__main__':
         print 'level: ', level, 'current max: ', max_level
 
         color = Color(0, 60, 0)
-        led_array.fill_up_to(int(max_level),color)
+        led_array.fill_up_to(int(level),color)
         sleep(0.1)
 
 clean_up()
