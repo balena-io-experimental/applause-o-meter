@@ -2,7 +2,6 @@
 FROM registry.resin.io/digtaldisplay/f04fbad79a83344a17012dbb3863149a1f08d99a
 
 RUN apt-get update && apt-get install -yq \
-    portaudio \
     python-pyaudio && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
