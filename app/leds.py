@@ -11,17 +11,19 @@ LED_BRIGHTNESS = 255     # Set to 0 for darkest and 255 for brightest
 LED_INVERT     = False   # True to invert the signal (when using NPN transistor level shift)
 ROW_WIDTH      = 8
 
-def setRowColor(strip):
-    for i in range(ROW_WIDTH):
+def setRowColor(strip, row_number):
+    start = 0 + row_number*ROW_WIDTH
+    end = start + ROW_WIDTH
+    for i in range(start, end):
         strip.setPixelColor(i, Color(0, 255, 0))
-        strip.show()
+    strip.show()
 
 # Main program logic follows:
 if __name__ == '__main__':
     # Create NeoPixel object with appropriate configuration.
-    strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS)
+    led_array = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS)
 	# Intialize the library (must be called once before other functions).
-    strip.begin()
+    led_array.begin()
 
     while True:
-        setRowColor(strip)
+        setRowColor(led_array,1)
