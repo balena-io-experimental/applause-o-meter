@@ -9,10 +9,12 @@ LED_FREQ_HZ    = 800000  # LED signal frequency in hertz (usually 800khz)
 LED_DMA        = 5       # DMA channel to use for generating signal (try 5)
 LED_BRIGHTNESS = 255     # Set to 0 for darkest and 255 for brightest
 LED_INVERT     = False   # True to invert the signal (when using NPN transistor level shift)
+ROW_WIDTH      = 8
 
-def setRowColor(strip, pos):
-    strip.setPixelColor(pos, Color(0, 255, 0))
-    strip.show()
+def setRowColor(strip):
+    for i in range(ROW_WIDTH):
+        strip.setPixelColor(i, Color(0, 255, 0))
+        strip.show()
 
 # Main program logic follows:
 if __name__ == '__main__':
@@ -22,4 +24,4 @@ if __name__ == '__main__':
     strip.begin()
 
     while True:
-        setRowColor(strip,0)
+        setRowColor(strip)
