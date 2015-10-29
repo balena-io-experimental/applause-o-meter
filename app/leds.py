@@ -11,12 +11,16 @@ LED_BRIGHTNESS = 255     # Set to 0 for darkest and 255 for brightest
 LED_INVERT     = False   # True to invert the signal (when using NPN transistor level shift)
 ROW_WIDTH      = 8
 
-def setRowColor(strip, row_number):
+def setRowColor(strip, row_number, color):
     start = 0 + row_number*ROW_WIDTH
     end = start + ROW_WIDTH
     for i in range(start, end):
-        strip.setPixelColor(i, Color(0, 255, 0))
+        strip.setPixelColor(i, color)
     strip.show()
+
+def fill_up_to(strip, row, color):
+    for i in range(row):
+        setRowColor(strip,i,color)
 
 # Main program logic follows:
 if __name__ == '__main__':
@@ -26,4 +30,6 @@ if __name__ == '__main__':
     led_array.begin()
 
     while True:
-        setRowColor(led_array,1)
+        color = Color(0, 255, 255)
+        # setRowColor(led_array,1,color)
+        fill_up_to(led_array,1,color)
