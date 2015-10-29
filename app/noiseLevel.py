@@ -10,6 +10,8 @@ RATE = 44100
 RECORD_SECONDS = 1
 AUDIO_MAX = 20000
 
+MAX_ROWS = 8
+
 p = pyaudio.PyAudio()
 
 stream = p.open(format=FORMAT,
@@ -45,7 +47,7 @@ for i in range(0, int(RATE / CHUNK * 5)):
     rms = audioop.rms(data_chunk, 2)
     if rms > current_max:
         current_max = rms
-    level = convert_scale(rms, 0, AUDIO_MAX, 0, 32)
+    level = convert_scale(rms, 0, AUDIO_MAX, 0, MAX_ROWS)
     max_level = convert_scale(current_max, 0, AUDIO_MAX, 0, 32)
     print 'level: ', level, 'current max: ', max_level
 

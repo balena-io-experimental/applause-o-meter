@@ -17,7 +17,7 @@ class Led_Array(object):
                                             self.LED_DMA,
                                             self.LED_INVERT,
                                             self.LED_BRIGHTNESS)
-                                            
+
     	# Intialize the library (must be called once before other functions).
         self.led_array.begin()
 
@@ -26,8 +26,8 @@ class Led_Array(object):
 
     def setRowColor(self, strip, row_number, color):
         strip = self.led_array
-        start = 0 + row_number*ROW_WIDTH
-        end = start + ROW_WIDTH
+        start = 0 + row_number*self.ROW_WIDTH
+        end = start + self.ROW_WIDTH
         for i in range(start, end):
             strip.setPixelColor(i, color)
         strip.show()
