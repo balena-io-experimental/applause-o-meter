@@ -45,14 +45,6 @@ def convert_scale(noise_level, input_min, input_max, output_min, output_max):
     return output_min + (value_scaled * output_span)
 
 current_max = -100000
-# for i in range(0, int(RATE / CHUNK * 5)):
-#     data_chunk = stream.read(CHUNK)
-#     rms = audioop.rms(data_chunk, 2)
-#     if rms > current_max:
-#         current_max = rms
-#     level = convert_scale(rms, 0, AUDIO_MAX, 0, MAX_ROWS)
-#     max_level = convert_scale(current_max, 0, AUDIO_MAX, 0, MAX_ROWS)
-#     print 'level: ', level, 'current max: ', max_level
 
 if __name__ == '__main__':
     # Create NeoPixel object with appropriate configuration.
@@ -70,7 +62,7 @@ if __name__ == '__main__':
             current_max = rms
         level = convert_scale(rms, 0, AUDIO_MAX, 0, MAX_ROWS)
         max_level = convert_scale(current_max, 0, AUDIO_MAX, 0, MAX_ROWS)
-        print 'level: ', level, 'current max: ', max_level
+        #print 'level: ', level, 'current max: ', max_level
 
         color = Color(0, 60, 0)
         led_array.fill_up_to(int(level),color)
