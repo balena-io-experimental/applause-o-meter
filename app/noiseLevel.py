@@ -6,7 +6,7 @@ from time import sleep
 
 from Led_Array import Led_Array, Color
 
-CHUNK = 2048
+CHUNK =  8192
 FORMAT = pyaudio.paInt16
 CHANNELS = 2
 RATE = 44100
