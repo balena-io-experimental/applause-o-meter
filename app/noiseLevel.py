@@ -8,8 +8,8 @@ from Led_Array import Led_Array, Color
 
 CHUNK =  8192
 FORMAT = pyaudio.paInt16
-CHANNELS = 2
-RATE = 44100
+CHANNELS = 1
+RATE = 8000
 RECORD_SECONDS = 1
 AUDIO_MAX = int(os.getenv('AUDIOMAX','20000'))
 print AUDIO_MAX
