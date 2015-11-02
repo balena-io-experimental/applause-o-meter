@@ -24,7 +24,7 @@ class Led_Array(object):
     def _info(self):
         return self.LED_COUNT, self.LED_PIN, self.LED_BRIGHTNESS, self.ROW_WIDTH
 
-    def setRowColor(self, strip, row_number, color):
+    def setRowColor(self, row_number, color):
         strip = self.led_array
         start = 0 + row_number*self.ROW_WIDTH
         end = start + self.ROW_WIDTH
@@ -33,9 +33,9 @@ class Led_Array(object):
         # strip.show()
 
     def fill_up_to(self, row, color):
-        strip = self.led_array
+        #strip = self.led_array
         for i in range(row+1):
-            self.setRowColor(strip,i,color)
+            self.setRowColor(i,color)
 
     def empty_array(self):
         strip = self.led_array
