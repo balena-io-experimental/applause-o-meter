@@ -64,7 +64,7 @@ if __name__ == '__main__':
         max_level = convert_scale(current_max, 0, AUDIO_MAX, 0, MAX_ROWS)
         #print 'level: ', level, 'current max: ', max_level
 
-        color = Color(0, 60, 0)
+        color = Color(60, 0, 0)
         led_array.empty_array()
         led_array.fill_up_to(int(level),color)
         led_array.render()

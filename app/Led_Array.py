@@ -2,13 +2,13 @@ from neopixel import Adafruit_NeoPixel
 
 class Led_Array(object):
     def __init__(self):
-        self.LED_COUNT      = 8      # Number of LED pixels.
+        self.LED_COUNT      = 256      # Number of LED pixels.
         self.LED_PIN        = 18      # GPIO pin connected to the pixels (must support PWM!).
         self.LED_FREQ_HZ    = 800000  # LED signal frequency in hertz (usually 800khz)
         self.LED_DMA        = 5       # DMA channel to use for generating signal (try 5)
         self.LED_BRIGHTNESS = 255     # Set to 0 for darkest and 255 for brightest
         self.LED_INVERT     = False   # True to invert the signal (when using NPN transistor level shift)
-        self.ROW_WIDTH      = 1       # Number of LEDs in each row of the array
+        self.ROW_WIDTH      = 8       # Number of LEDs in each row of the array
 
         # Create NeoPixel object with appropriate configuration.
         self.led_array = Adafruit_NeoPixel( self.LED_COUNT,
