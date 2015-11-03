@@ -9,7 +9,7 @@ from Led_Array import Led_Array, Color
 CHUNK =  8192
 FORMAT = pyaudio.paInt16
 CHANNELS = 1
-RATE = 8000
+RATE = 44100
 RECORD_SECONDS = 1
 AUDIO_MAX = int(os.getenv('AUDIOMAX','20000'))
 print AUDIO_MAX
@@ -71,6 +71,6 @@ if __name__ == '__main__':
         blue = Color(0, 0, 60)
         led_array.fill_up_to(int(level),blue)
         led_array.render()
-        # sleep(0.1)
+        sleep(0.05)
 
 clean_up()
