@@ -6,11 +6,10 @@ from time import sleep
 
 from Led_Array import Led_Array, Color
 
-CHUNK =  8192
+CHUNK = 1024
 FORMAT = pyaudio.paInt16
-CHANNELS = 1
+CHANNELS = 2
 RATE = 44100
-RECORD_SECONDS = 1
 AUDIO_MAX = int(os.getenv('AUDIOMAX','20000'))
 print AUDIO_MAX
 
@@ -63,12 +62,11 @@ if __name__ == '__main__':
             current_max = rms
         level = convert_scale(rms, 0, AUDIO_MAX, 0, MAX_ROWS)
         max_level = convert_scale(current_max, 0, AUDIO_MAX, 0, MAX_ROWS)
-        #print 'level: ', level, 'current max: ', max_level
 
         led_array.empty_array()
-        red = Color(60,0,0)
+        red = Color(100,0,0)
         led_array.setRowColor(int(max_level),red)
-        blue = Color(0, 0, 60)
+        blue = Color(0, 0, 100)
         led_array.fill_up_to(int(level),blue)
         led_array.render()
         sleep(0.05)
