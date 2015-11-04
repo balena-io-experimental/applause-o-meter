@@ -66,9 +66,9 @@ if __name__ == '__main__':
         led_array.empty_array()
         red = Color(100,0,0)
         led_array.setRowColor(int(max_level),red)
-        blue = Color(0, 0, 100)
+        blue = Color(0, 0, 160)
         led_array.fill_up_to(int(level),blue)
         led_array.render()
-        sleep(0.05)
+        sleep(0.15)
 
 clean_up()
