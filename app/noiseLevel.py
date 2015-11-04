@@ -49,7 +49,7 @@ current_max = -100000
 if __name__ == '__main__':
     # Create NeoPixel object with appropriate configuration.
     led_array = Led_Array()
-
+    loop_count = 0
     while True:
         try:
             data_chunk = stream.read(CHUNK)
@@ -69,6 +69,13 @@ if __name__ == '__main__':
         blue = Color(0, 0, 160)
         led_array.fill_up_to(int(level),blue)
         led_array.render()
+        loop_count = loop_count + 1
+        if loop_count > 10 :
+            if current_max > 1:
+                current_max = current_max - 1
+            else:
+                current_max = 1
+            loop_count = 0
         sleep(0.15)
 
 clean_up()
