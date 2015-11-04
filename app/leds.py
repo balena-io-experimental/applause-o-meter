@@ -34,9 +34,7 @@ if __name__ == '__main__':
 
     while True:
         color = Color(0, 0, 60)
-        # setRowColor(led_array,1,color)
-        # fill_up_to(led_array,0,color)
-        # sleep(0.1)
+
         fill_up_to(led_array,7,color)
         sleep(5)
         empty_array(led_array)
