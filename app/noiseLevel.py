@@ -72,11 +72,11 @@ if __name__ == '__main__':
         led_array.render()
         loop_count = loop_count + 1
         if loop_count >= 5 :
-            if current_max >= 1:
-                current_max = current_max - 1
+            if max_level >= 1:
+                max_level = max_level - 1
                 print 'max is fading by 1'
             else:
-                current_max = 1
+                max_level = 1
             loop_count = 0
         sleep(0.15)
 
