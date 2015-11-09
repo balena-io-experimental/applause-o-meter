@@ -54,7 +54,7 @@ if __name__ == '__main__':
         try:
             data_chunk = stream.read(CHUNK)
         except IOError as e:
-            print "I/O error({0}): {1}".format(e.errno, e.strerror)
+            # print "I/O error({0}): {1}".format(e.errno, e.strerror)
             continue
 
         rms = audioop.rms(data_chunk, 2)
@@ -62,6 +62,7 @@ if __name__ == '__main__':
             current_max = rms
         level = convert_scale(rms, 0, AUDIO_MAX, 0, MAX_ROWS)
         max_level = convert_scale(current_max, 0, AUDIO_MAX, 0, MAX_ROWS)
+        print max_level
 
         led_array.empty_array()
         red = Color(100,0,0)
