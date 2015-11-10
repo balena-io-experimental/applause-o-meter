@@ -82,12 +82,11 @@ if __name__ == '__main__':
             print 'Current Max is: ',current_max
         loop_count = loop_count + 1
 
-        if loop_count >=5:
+        if loop_count >=15:
             message = {'current_max': current_max, 'current_level': current_level}
             if publish_enable == "on":
                 pubnub.publish(channel,message,callback=pubnub_callback, error=pubnub_callback)
 
-        if loop_count >= 20:
             if current_max <= 1:
                 current_max = 1
             else:
@@ -103,5 +102,5 @@ if __name__ == '__main__':
         led_array.render()
 
         # sleep(0.15)
-        print("--- %s seconds ---" % (time.time() - start_time))
+        # print("--- %s seconds ---" % (time.time() - start_time))
 clean_up()
