@@ -12,4 +12,4 @@ COPY app /usr/src/app
 WORKDIR /usr/src/app
 
 #CMD ["python","noiseLevel.py"]
-CMD ["python","Publish.py"]
+CMD ["python","noiseLevel.py"]
