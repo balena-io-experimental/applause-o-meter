@@ -37,6 +37,8 @@ current_level = 0
 
 
 def audio_callback(in_data, frame_count, time_info, status):
+    global current_max
+
     # audio rms power value
     rms = audioop.rms(in_data, 2) * AUDIO_VOLUME
 
