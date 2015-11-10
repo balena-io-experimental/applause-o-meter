@@ -53,10 +53,13 @@ def convert_scale(noise_level, input_min, input_max, output_min, output_max):
     return output_min + (value_scaled * output_span)
 
 
-def publishData(channelName,message):
-    print 'from pub func: ' ,message
-    # Synchronous pubnub call
-    print pubnub.publish(channel=channelName, message=message)
+# def publishData(channelName,message):
+#     print 'from pub func: ' ,message
+#     # Synchronous pubnub call
+#     print pubnub.publish(channel=channelName, message=message)
+
+def pubnub_callback(message):
+    print('publishing : ', message)
 
 current_max = -100000
 if __name__ == '__main__':
@@ -77,16 +80,14 @@ if __name__ == '__main__':
 
         if current_level > current_max:
             current_max = current_level
+
             #check if we go over the limit, then set to 32.
             if current_max > 32:
                 current_max = 32
-            message = {
-                'current_max': current_max
-            }
-
+                
+            message = {'current_max': current_max}
             if publish_enable == "on":
-                publishData(channel,message)
-                print 'publishing : ', message
+                pubnub.publish(channel,message,callback=pubnub_callback, error=pubnub_callback)
 
         loop_count = loop_count + 1
         if loop_count >= 20:
