@@ -56,7 +56,7 @@ def audio_callback(in_data, frame_count, time_info, status):
 
 stream = p.open(format=FORMAT,
                 channels=CHANNELS,
-                frames_per_buffer=1024,
+                frames_per_buffer=RATE / 10,
                 rate=RATE,
                 input=True,
                 output=False,
