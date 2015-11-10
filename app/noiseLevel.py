@@ -57,27 +57,33 @@ if __name__ == '__main__':
             # print "I/O error({0}): {1}".format(e.errno, e.strerror)
             continue
 
+        #audio rms power value
         rms = audioop.rms(data_chunk, 2)
-        if rms > current_max:
-            current_max = rms
-        level = convert_scale(rms, 0, AUDIO_MAX, 0, MAX_ROWS)
-        max_level = convert_scale(current_max, 0, AUDIO_MAX, 0, MAX_ROWS)
-        print max_level
+        #current_level is 0-32 value shown on LEDs
+        current_level = int(convert_scale(rms, 0, AUDIO_MAX, 0, MAX_ROWS))
+
+        if current_level > current_max:
+            current_max = current_level
+            #check if we go over the limit, then set to 32.
+            if current_max > 32:
+                current_max = 32
+
+        loop_count = loop_count + 1
+        if loop_count >= 20:
+            if current_max <= 1:
+                current_max = 1
+            else:
+                # if it been a while, then receed the max a bit.
+                current_max = current_max - 1
+                loop_count = 0
 
         led_array.empty_array()
         red = Color(100,0,0)
-        led_array.setRowColor(int(max_level),red)
+        led_array.setRowColor(current_max,red)
         blue = Color(0, 0, 160)
-        led_array.fill_up_to(int(level),blue)
+        led_array.fill_up_to(current_level,blue)
         led_array.render()
-        loop_count = loop_count + 1
-        if loop_count >= 5 :
-            if max_level >= 1:
-                max_level = max_level - 1
-                print 'max is fading by 1'
-            else:
-                max_level = 1
-            loop_count = 0
-        sleep(0.15)
+
+        # sleep(0.15)
 
 clean_up()
