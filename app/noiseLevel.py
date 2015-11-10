@@ -12,7 +12,8 @@ pubKey = os.getenv("PUBLISH_KEY")
 subKey = os.getenv("SUBSCRIBE_KEY")
 channel = os.getenv("RESIN_DEVICE_UUID")
 pubnub = Pubnub(publish_key=pubKey, subscribe_key=subKey, ssl_on=True)
-publish_enable = os.getenv("PUB_ENBALE","off")
+publish_enable = os.getenv("PUB_ENABLE","off")
+print publish_enable
 
 CHUNK = 1024
 FORMAT = pyaudio.paInt16
@@ -106,7 +107,7 @@ if __name__ == '__main__':
 
         if publish_enable == "on":
             publishData(channel,message)
-            print 'publishing: ', message
+            print 'publishing: ', message, 'on channel: ',channel
 
         blue = Color(0, 0, 160)
         led_array.fill_up_to(current_level,blue)
