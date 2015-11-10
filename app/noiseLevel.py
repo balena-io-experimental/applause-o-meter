@@ -101,13 +101,13 @@ if __name__ == '__main__':
         red = Color(100,0,0)
         led_array.setRowColor(current_max,red)
 
-        message = {
-            'current_level': current_level
-        }
+        # message = {
+        #     'current_level': current_level
+        # }
 
-        if publish_enable == "on":
-            publishData(channel,message)
-            print 'publishing: ', message, 'on channel: ',channel
+        # if publish_enable == "on":
+        #     publishData(channel,message)
+        #     print 'publishing: ', message, 'on channel: ',channel
 
         blue = Color(0, 0, 160)
         led_array.fill_up_to(current_level,blue)
