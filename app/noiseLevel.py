@@ -43,6 +43,9 @@ def audio_callback(in_data, frame_count, time_info, status):
     global count
     count += 1
 
+    # slowly drop the max
+    current_max = max(current_max - 2, 0)
+
     # audio rms power value
     rms = audioop.rms(in_data, 2) * AUDIO_VOLUME
 
