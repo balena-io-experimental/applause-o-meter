@@ -12,7 +12,7 @@ pubKey = os.getenv("PUBLISH_KEY")
 subKey = os.getenv("SUBSCRIBE_KEY")
 channel = os.getenv("RESIN_DEVICE_UUID")
 pubnub = Pubnub(publish_key=pubKey, subscribe_key=subKey, ssl_on=True)
-publish_enable = os.getenv("PUB_ENABLE","off")
+publish_enable = os.getenv("PUB_ENABLE", "off")
 print publish_enable
 
 CHUNK = 1024
@@ -20,7 +20,7 @@ FORMAT = pyaudio.paInt16
 CHANNELS = 2
 RATE = 44100
 AUDIO_MAX = int(os.getenv('AUDIOMAX','20000'))
-print 'AUDIO_Max = ',AUDIO_MAX
+print 'AUDIO_MAX = ', AUDIO_MAX
 MAX_ROWS = 8
 
 p = pyaudio.PyAudio()
@@ -30,6 +30,7 @@ stream = p.open(format=FORMAT,
                 rate=RATE,
                 input=True,
                 frames_per_buffer=CHUNK)
+
 def clean_up():
     print 'Clean up streams and pyaudio'
     stream.stop_stream()
