@@ -44,13 +44,12 @@ def audio_callback(in_data, frame_count, time_info, status):
     count += 1
 
     # slowly drop the max
-    current_max = max(current_max - 2, 0)
+    current_max = max(current_max - 1, 0)
 
-    # audio rms power value
-    rms = audioop.rms(in_data, 2) * AUDIO_VOLUME
-
+    current_level = audioop.max(in_data, 2) * AUDIO_VOLUME
     # current_level is 0-32 value shown on LEDs
-    current_level = min(int(rms * MAX_ROWS / AUDIO_MAX), MAX_ROWS)
+    current_level = min(int(current_level * MAX_ROWS / AUDIO_MAX), MAX_ROWS)
+
     current_max = min(max(current_level, current_max), MAX_ROWS)
 
     led_array.empty_array()
