@@ -3,16 +3,23 @@ import audioop
 import signal
 import sys, os
 from time import sleep
+from pubnub import Pubnub
 
 from Led_Array import Led_Array, Color
+
+#set up pubnub object
+pubKey = os.getenv("PUBLISH_KEY")
+subKey = os.getenv("SUBSCRIBE_KEY")
+channel = os.getenv("RESIN_DEVICE_UUID")
+pubnub = Pubnub(publish_key=pubKey, subscribe_key=subKey, ssl_on=True)
+publish_enable = os.getenv("PUB_ENBALE","off")
 
 CHUNK = 1024
 FORMAT = pyaudio.paInt16
 CHANNELS = 2
 RATE = 44100
 AUDIO_MAX = int(os.getenv('AUDIOMAX','20000'))
-print AUDIO_MAX
-
+print 'AUDIO_Max = ',AUDIO_MAX
 MAX_ROWS = 8
 
 p = pyaudio.PyAudio()
@@ -44,8 +51,13 @@ def convert_scale(noise_level, input_min, input_max, output_min, output_max):
 
     return output_min + (value_scaled * output_span)
 
-current_max = -100000
 
+def publishData(channelName,message):
+    print 'from pub func: ' ,message
+    # Synchronous pubnub call
+    print pubnub.publish(channel=channelName, message=message)
+
+current_max = -100000
 if __name__ == '__main__':
     # Create NeoPixel object with appropriate configuration.
     led_array = Led_Array()
@@ -67,6 +79,13 @@ if __name__ == '__main__':
             #check if we go over the limit, then set to 32.
             if current_max > 32:
                 current_max = 32
+            message = {
+                'current_max': current_max
+            }
+
+            if publish_enable == "on":
+                publishData(channel,message)
+                print 'publishing : ', message
 
         loop_count = loop_count + 1
         if loop_count >= 20:
@@ -80,10 +99,19 @@ if __name__ == '__main__':
         led_array.empty_array()
         red = Color(100,0,0)
         led_array.setRowColor(current_max,red)
+
+        message = {
+            'current_level': current_level
+        }
+
+        if publish_enable == "on":
+            publishData(channel,message)
+            print 'publishing: ', message
+
         blue = Color(0, 0, 160)
         led_array.fill_up_to(current_level,blue)
         led_array.render()
 
-        #sleep(0.15)
+        sleep(0.15)
 
 clean_up()
