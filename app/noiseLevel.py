@@ -84,6 +84,6 @@ if __name__ == '__main__':
         led_array.fill_up_to(current_level,blue)
         led_array.render()
 
-        # sleep(0.15)
+        #sleep(0.15)
 
 clean_up()

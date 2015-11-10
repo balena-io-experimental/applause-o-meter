@@ -15,9 +15,12 @@ def publishData(channelName,message):
     print pubnub.publish(channel=channelName, message=message)
 
 if __name__ == '__main__':
+    number = 0
     while True:
-        data = 11
+        data = {
+            'current_level': number
+        }
         print 'publishing : ', data
         publishData(channel,data)
-        data = data + 1
+        number = number + 1
         time.sleep(60)
