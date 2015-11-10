@@ -2,7 +2,7 @@ import pyaudio
 import audioop
 import signal
 import sys, os
-from time import sleep
+import time
 from pubnub import Pubnub
 
 from Led_Array import Led_Array, Color
@@ -52,12 +52,6 @@ def convert_scale(noise_level, input_min, input_max, output_min, output_max):
 
     return output_min + (value_scaled * output_span)
 
-
-# def publishData(channelName,message):
-#     print 'from pub func: ' ,message
-#     # Synchronous pubnub call
-#     print pubnub.publish(channel=channelName, message=message)
-
 def pubnub_callback(message):
     print('publishing : ', message)
 
@@ -67,6 +61,7 @@ if __name__ == '__main__':
     led_array = Led_Array()
     loop_count = 0
     while True:
+        start_time = time.time()
         try:
             data_chunk = stream.read(CHUNK)
         except IOError as e:
@@ -84,12 +79,15 @@ if __name__ == '__main__':
             if current_max > 32:
                 current_max = 32
 
+            print 'Current Max is: ',current_max
         loop_count = loop_count + 1
+
         if loop_count >=5:
             message = {'current_max': current_max, 'current_level': current_level}
             if publish_enable == "on":
                 pubnub.publish(channel,message,callback=pubnub_callback, error=pubnub_callback)
-        elif loop_count >= 20:
+
+        if loop_count >= 20:
             if current_max <= 1:
                 current_max = 1
             else:
@@ -105,5 +103,5 @@ if __name__ == '__main__':
         led_array.render()
 
         # sleep(0.15)
-
+        print("--- %s seconds ---" % (time.time() - start_time))
 clean_up()
