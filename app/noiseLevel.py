@@ -80,17 +80,16 @@ if __name__ == '__main__':
 
         if current_level > current_max:
             current_max = current_level
-
             #check if we go over the limit, then set to 32.
             if current_max > 32:
                 current_max = 32
-                
-            message = {'current_max': current_max}
-            if publish_enable == "on":
-                pubnub.publish(channel,message,callback=pubnub_callback, error=pubnub_callback)
 
         loop_count = loop_count + 1
-        if loop_count >= 20:
+        if loop_count >=5:
+            message = {'current_max': current_max, 'current_level': current_level}
+            if publish_enable == "on":
+                pubnub.publish(channel,message,callback=pubnub_callback, error=pubnub_callback)
+        elif loop_count >= 20:
             if current_max <= 1:
                 current_max = 1
             else:
@@ -101,19 +100,10 @@ if __name__ == '__main__':
         led_array.empty_array()
         red = Color(100,0,0)
         led_array.setRowColor(current_max,red)
-
-        # message = {
-        #     'current_level': current_level
-        # }
-
-        # if publish_enable == "on":
-        #     publishData(channel,message)
-        #     print 'publishing: ', message, 'on channel: ',channel
-
         blue = Color(0, 0, 160)
         led_array.fill_up_to(current_level,blue)
         led_array.render()
 
-        sleep(0.15)
+        # sleep(0.15)
 
 clean_up()
