@@ -53,8 +53,8 @@ def audio_callback(in_data, frame_count, time_info, status):
     current_max = min(max(current_level, current_max), MAX_ROWS)
 
     led_array.empty_array()
-    led_array.setRowColor(current_max, RED)
     led_array.fill_up_to(current_level, BLUE)
+    led_array.setRowColor(current_max, RED)
     led_array.render()
 
     return (None, pyaudio.paContinue)
