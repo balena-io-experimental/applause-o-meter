@@ -35,10 +35,13 @@ led_array = Led_Array()
 current_max = 0
 current_level = 0
 
+count = 0
 
 def audio_callback(in_data, frame_count, time_info, status):
     global current_max
     global current_level
+    global count
+    count += 1
 
     # audio rms power value
     rms = audioop.rms(in_data, 2) * AUDIO_VOLUME
@@ -83,8 +86,11 @@ stream.start_stream()
 while stream.is_active():
     if PUBNUB_ENABLE == "on":
         message = {'current_max': current_max, 'current_level': current_level}
-        print('pubnub: ', message)
+        print 'pubnub: ', message
         pubnub.publish(RESIN_DEVICE_UUID, message)
+
+    print "audio callback rate: %dHz" % count
+    count = 0
 
     time.sleep(1)
 
