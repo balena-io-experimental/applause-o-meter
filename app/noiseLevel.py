@@ -18,6 +18,7 @@ SUBSCRIBE_KEY = os.getenv("SUBSCRIBE_KEY")
 
 RATE = 44100
 FORMAT = pyaudio.paInt16
+AUDIO_MAX = 2 ** 15
 CHANNELS = 2
 
 MAX_ROWS = 32
