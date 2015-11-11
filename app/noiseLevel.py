@@ -55,7 +55,7 @@ def audio_callback(in_data, frame_count, time_info, status):
 
     current_max = min(max(current_level, current_max), MAX_ROWS)
 
-    current_progress = min(current_progress + current_level / 100.0, MAX_ROWS)
+    current_progress = min(current_progress + current_level / 10.0, MAX_ROWS)
 
     led_array.empty_array()
     led_array.fill_up_to(int(current_progress) + current_level, BLUE)
