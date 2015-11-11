@@ -24,7 +24,8 @@ CHANNELS = 2
 MAX_ROWS = 32
 
 RED = Color(100, 0, 0)
-BLUE = Color(0, 0, 160)
+GREEN = Color(0, 100, 0)
+BLUE = Color(0, 0, 100)
 
 pubnub = Pubnub(publish_key=PUBLISH_KEY,
                 subscribe_key=SUBSCRIBE_KEY, ssl_on=True)
@@ -34,12 +35,14 @@ led_array = Led_Array()
 
 current_max = 0
 current_level = 0
+current_progress = 0
 
 count = 0
 
 def audio_callback(in_data, frame_count, time_info, status):
     global current_max
     global current_level
+    global current_progress
     global count
     count += 1
 
@@ -52,9 +55,12 @@ def audio_callback(in_data, frame_count, time_info, status):
 
     current_max = min(max(current_level, current_max), MAX_ROWS)
 
+    current_progress = min(current_progress + current_level / 100.0, MAX_ROWS)
+
     led_array.empty_array()
-    led_array.fill_up_to(current_level, BLUE)
-    led_array.setRowColor(current_max, RED)
+    led_array.fill_up_to(int(current_progress) + current_level, BLUE)
+    led_array.setRowColor(int(current_progress) + current_max, RED)
+    led_array.fill_up_to(int(current_progress), GREEN)
     led_array.render()
 
     return (None, pyaudio.paContinue)
