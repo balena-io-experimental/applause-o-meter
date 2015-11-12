@@ -94,8 +94,8 @@ signal.signal(signal.SIGINT, handler)
 # Asynchronous usage
 def callback(message, channel):
     global READY_FLAG
-    print('message received: ',message)
-    if (message == "ready") & (READY_FLAG == False):
+    print('message received: ',str(message))
+    if (str(message) == "ready") & (READY_FLAG == False):
         READY_FLAG = True
         main()
 
@@ -115,10 +115,12 @@ def reconnect(message):
 def disconnect(message):
     print("DISCONNECTED")
 
-pubnub.subscribe(channels='dockercon', callback=callback, error=error_callback,
+pubnub.subscribe(channels="dockercon", callback=callback, error=error_callback,
                  connect=connect, reconnect=reconnect, disconnect=disconnect)
 
 def main():
+    global count
+    print('Starting Applause-o-meter!!')
     stream.start_stream()
     while stream.is_active():
         if PUBNUB_ENABLE == "on":
