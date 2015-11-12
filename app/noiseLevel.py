@@ -94,7 +94,7 @@ signal.signal(signal.SIGINT, handler)
 # Asynchronous usage
 def callback(message, channel):
     global READY_FLAG
-    print(message)
+    print('message received: ',message)
     if (message == "ready") & (READY_FLAG == False):
         READY_FLAG = True
         main()
@@ -118,8 +118,8 @@ def disconnect(message):
 pubnub.subscribe(channels='dockercon', callback=callback, error=error_callback,
                  connect=connect, reconnect=reconnect, disconnect=disconnect)
 
-stream.start_stream()
 def main():
+    stream.start_stream()
     while stream.is_active():
         if PUBNUB_ENABLE == "on":
             current_progress_percent = (current_progress/32.0)*100
