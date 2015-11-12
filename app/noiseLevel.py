@@ -93,9 +93,9 @@ stream.start_stream()
 
 while stream.is_active():
     if PUBNUB_ENABLE == "on":
-        current_max_percent = (current_max/32.0)*100
+        current_progress_percent = (current_progress/32.0)*100
         current_level_percent = (current_level/32.0)*100
-        message = {'current_max': current_max_percent, 'current_level': current_level_percent}
+        message = {'current_progress': current_progress_percent, 'current_level': current_level_percent}
         print 'pubnub: ', message
         pubnub.publish(RESIN_DEVICE_UUID, message)
 
