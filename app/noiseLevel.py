@@ -27,6 +27,8 @@ RED = Color(100, 0, 0)
 GREEN = Color(0, 100, 0)
 BLUE = Color(0, 0, 100)
 
+READY_FLAG = False
+
 pubnub = Pubnub(publish_key=PUBLISH_KEY,
                 subscribe_key=SUBSCRIBE_KEY, ssl_on=True)
 
@@ -89,19 +91,48 @@ def handler(signal, frame):
 signal.signal(signal.SIGTERM, handler)
 signal.signal(signal.SIGINT, handler)
 
+# Asynchronous usage
+def callback(message, channel):
+    global READY_FLAG
+    print(message)
+    if (message == "ready") & (READY_FLAG == False):
+        READY_FLAG = True
+        main()
+
+
+def error_callback(message):
+    print("ERROR : " + str(message))
+
+
+def connect(message):
+    print("CONNECTED to dockercon channel")
+
+
+def reconnect(message):
+    print("RECONNECTED")
+
+
+def disconnect(message):
+    print("DISCONNECTED")
+
+pubnub.subscribe(channels='dockercon', callback=callback, error=error_callback,
+                 connect=connect, reconnect=reconnect, disconnect=disconnect)
+
 stream.start_stream()
+def main():
+    while stream.is_active():
+        if PUBNUB_ENABLE == "on":
+            current_progress_percent = (current_progress/32.0)*100
+            current_level_percent = (current_level/32.0)*100
+            message = {'current_progress': current_progress_percent, 'current_level': current_level_percent}
+            print 'pubnub: ', message
+            pubnub.publish(RESIN_DEVICE_UUID, message)
 
-while stream.is_active():
-    if PUBNUB_ENABLE == "on":
-        current_progress_percent = (current_progress/32.0)*100
-        current_level_percent = (current_level/32.0)*100
-        message = {'current_progress': current_progress_percent, 'current_level': current_level_percent}
-        print 'pubnub: ', message
-        pubnub.publish(RESIN_DEVICE_UUID, message)
+        print "audio callback rate: %dHz" % count
+        count = 0
 
-    print "audio callback rate: %dHz" % count
-    count = 0
+        time.sleep(1)
 
-    time.sleep(1)
-
+while True:
+    time.sleep(10)
 clean_up()
