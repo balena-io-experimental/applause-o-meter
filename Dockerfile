@@ -10,6 +10,6 @@ RUN pip install rpi_ws281x pubnub==3.7.3
 
 WORKDIR /usr/src/app
 
-CMD [ "python", "noiseLevel.py" ]
+CMD [ "python", "blank_leds.py" ]
 
 COPY app /usr/src/app
