@@ -5,6 +5,7 @@ RED = Color(100, 0, 0)
 GREEN = Color(0, 100, 0)
 BLUE = Color(0, 0, 100)
 
+print('Reset: Blanking all the LEDS')
 led_array = Led_Array()
 
 led_array.empty_array()
