@@ -73,6 +73,7 @@ stream = p.open(format=FORMAT,
                 rate=RATE,
                 input=True,
                 output=False,
+                start=False,
                 stream_callback=audio_callback)
 
 
