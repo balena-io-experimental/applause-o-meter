@@ -1,4 +1,5 @@
 from neopixel import Adafruit_NeoPixel
+import random
 
 class Led_Array(object):
     def __init__(self):
@@ -46,6 +47,13 @@ class Led_Array(object):
     def render(self):
         strip = self.led_array
         strip.show()
+
+    def randomize(self):
+        strip = self.led_array
+        rand_arr = random.sample(xrange(256), 256)
+        for i in range(256):
+            strip.setPixelColorRGB(i,0,0,rand_arr[i])
+
 
 def Color(red, green, blue):
     """Convert the provided red, green, blue color to a 24-bit color value.

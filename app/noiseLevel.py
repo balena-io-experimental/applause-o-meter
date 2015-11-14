@@ -138,5 +138,7 @@ def main():
         time.sleep(1)
 
 while True:
-    time.sleep(10)
+    led_array.randomize()
+    led_array.render()
+    time.sleep(2)
 clean_up()
