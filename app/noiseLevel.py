@@ -116,7 +116,7 @@ def reconnect(message):
 def disconnect(message):
     print("DISCONNECTED")
 
-pubnub.subscribe(channels="dockercon", callback=callback, error=error_callback,
+pubnub.subscribe(channels="events", callback=callback, error=error_callback,
                  connect=connect, reconnect=reconnect, disconnect=disconnect)
 
 def main():
