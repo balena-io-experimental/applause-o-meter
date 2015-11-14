@@ -10,6 +10,7 @@ from pubnub import Pubnub
 from Led_Array import Led_Array, Color
 
 AUDIO_VOLUME = float(os.getenv('AUDIO_VOLUME', 1.0))
+PROGRESS_SENSITIVITY = float(os.getenv('SENSITIVITY', 10.0))
 RESIN_DEVICE_UUID = os.getenv("RESIN_DEVICE_UUID")
 
 PUBNUB_ENABLE = os.getenv("PUBNUB_ENABLE", "off")
@@ -57,7 +58,7 @@ def audio_callback(in_data, frame_count, time_info, status):
 
     current_max = min(max(current_level, current_max), MAX_ROWS)
 
-    current_progress = min(current_progress + current_level / 10.0, MAX_ROWS)
+    current_progress = min(current_progress + current_level / PROGRESS_SENSITIVITY, MAX_ROWS)
 
     led_array.empty_array()
     led_array.fill_up_to(int(current_progress) + current_level, BLUE)
