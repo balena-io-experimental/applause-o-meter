@@ -52,7 +52,7 @@ class Led_Array(object):
         strip = self.led_array
         rand_arr = random.sample(xrange(256), 256)
         for i in range(256):
-            strip.setPixelColorRGB(i,0,0,rand_arr[i])
+            strip.setPixelColorRGB(i,0,0,rand_arr[i]/2)
 
 
 def Color(red, green, blue):
