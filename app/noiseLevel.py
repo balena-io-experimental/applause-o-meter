@@ -117,8 +117,8 @@ def reconnect(message):
 def disconnect(message):
     print("DISCONNECTED")
 
-pubnub.subscribe(channels="events", callback=callback, error=error_callback,
-                 connect=connect, reconnect=reconnect, disconnect=disconnect)
+# pubnub.subscribe(channels="events", callback=callback, error=error_callback,
+#                  connect=connect, reconnect=reconnect, disconnect=disconnect)
 
 def main():
     global count
